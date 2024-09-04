@@ -114,4 +114,5 @@ window.addEventListener("load", function(){
     productosTotal.innerText = totalEnProductos;
     precioTotal.innerText = "$ " + costoTotal.toFixed(2);
 
+    
 });//windows load
