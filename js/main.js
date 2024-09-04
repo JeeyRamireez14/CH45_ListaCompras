@@ -1,4 +1,5 @@
 const btnAgregar = document.getElementById("btnAgregar");
+const btnClear = document.getElementById("btnClear");
 const txtNombre = document.getElementById("Name");
 const txtNumber = document.getElementById("Number");
 const alertValidaciones = document.getElementById("alertValidaciones");
@@ -91,6 +92,21 @@ btnAgregar.addEventListener("click", function (event){
 
 }); //Aquí termina btnAgregar.addEventListener
 
+btnClear.addEventListener("click", function(event){
+    event.preventDefault();
+    //Limpiar el valor de los campos
+    txtNombre.value="";
+    txtNumber.value="";
+    //Limpiar el localStorage
+    //Limpiar la tabla
+    //Reiniciar las variables, contador, costoTotal, totalEnProductos
+    //Asignar las variables a las divs
+    //Ocultar la alerta
+    //Quitar los bordes
+let costoTotal =0;
+let totalEnProductos=0;
+});
+
 //Evento blur es cuando un camapo pierde el foco, se sale del campo
 txtNombre.addEventListener("blur", function(event){
     txtNombre.value = txtNombre.value.trim();
@@ -114,5 +130,19 @@ window.addEventListener("load", function(){
     productosTotal.innerText = totalEnProductos;
     precioTotal.innerText = "$ " + costoTotal.toFixed(2);
 
-    
+    if(this.localStorage.getItem("datos") !=null){
+        datos = JSON.parse(this.localStorage.getItem("datos"))
+    }//!=null
+    datos.forEach(r => {
+        let row = `<tr>
+                        <td>${r.contador}</td>
+                        <td>${r.nombre}</td>
+                        <td>${r.cantidad}</td>
+                        <td>${r.precio}</td>
+                        
+                        </tr>`;
+            cuerpoTabla.insertAdjacentHTML("bedoreend", row);
+    });
+
+
 });//windows load
