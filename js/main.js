@@ -18,6 +18,7 @@ let contador = 0;
 let precio = 0;
 let costoTotal = 0;
 let totalEnProductos = 0;
+let datos = new Array();
 
 
 function validarCantidad(){
@@ -73,6 +74,15 @@ btnAgregar.addEventListener("click", function (event){
                 <td>${txtNumber.value}</td>
                 <td>${precio}</td>
                </tr>`;
+
+            let elemento = {"contador": contador, 
+                "nombre": txtNombre.value,
+                "cantidad": txtNumber.value,
+                "precio": precio};
+
+            datos.push(elemento);
+            localStorage.setItem("datos", JSON.stringify(datos));
+            
             cuerpoTabla.insertAdjacentHTML("beforeend", row);
             costoTotal += precio * Number(txtNumber.value);
             totalEnProductos += Number(txtNumber.value);
@@ -98,13 +108,29 @@ btnClear.addEventListener("click", function(event){
     txtNombre.value="";
     txtNumber.value="";
     //Limpiar el localStorage
+    //Elimina por cada llave/clave un sólo elemento
+    //localStorage.remoteItem("contador");
+    //localStorage.remoteItem("costoTotal");
+    //localStorage.remoteItem("totalEnProductos");
+    //Elimina todo el contenido del localStorage
+    localStorage.clear();
     //Limpiar la tabla
     //Reiniciar las variables, contador, costoTotal, totalEnProductos
-    //Asignar las variables a las divs
+    contador=0;
+    costoTotal=0;
+    totalEnProductos=0;
+    //Asignar las variables a los divs
+    contadorProductos.innerText = contador;
+    productosTotal.innerText = totalEnProductos;
+    precioTotal.innerText = "$ " + costoTotal.toFixed(2);
     //Ocultar la alerta
+    alertValidacionesTexto.innerHTML="";
+    alertValidaciones.style.display= "none";
     //Quitar los bordes
-let costoTotal =0;
-let totalEnProductos=0;
+    txtNombre.style.border="";
+    txtNumber.style.border="";
+    //Manda el foco al campo Nombre
+    txtNombre.focus();
 });
 
 //Evento blur es cuando un camapo pierde el foco, se sale del campo
